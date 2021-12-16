@@ -8,6 +8,7 @@ const api= process.env.API_URL
 const mongoose = require('mongoose');
 const bookRouter= require('./routers/books')
 const categoryRouter= require('./routers/categories')
+const orderRouter= require('./routers/orders');
 
 
 // middileware
@@ -18,6 +19,7 @@ app.use(morgan('tiny'));
 // routes
 app.use(`${api}/book`, bookRouter)
 app.use(`${api}/category`, categoryRouter)
+app.use(`${api}/order`, orderRouter)
 
 
 

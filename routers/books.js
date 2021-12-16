@@ -9,8 +9,9 @@ const req = require('express/lib/request');
 // get all books from db
 
 router.get(`/`,async (req,res)=>{
-    
-    const book=await Book.find().populate('category')
+
+    // this populate category with only name
+    const book=await Book.find().populate('category','name -_id')
     
     res.send(book)
 })
@@ -21,10 +22,8 @@ router.get('/:id',async (req,res)=>{
     if(!mongoose.isValidObjectId(req.params.id)){
         res.status(400).send('invalid id type')
     }
-    const book= await Book.findById(req.params.id)
-
-    // above code does not show category so to do that
-    // const book= await Product.findById(req.params.id).populate('category')
+    
+    const book= await Book.findById(req.params.id).populate('category')
 
     if(!book) return res.status(404).json({status:false,message:'invalid id'})
 
@@ -56,4 +55,40 @@ router.post(`/`,async (req,res)=>{
 
     return res.send(newbook)
 })
+
+// del book
+router.delete('/:id', async(req,res)=>{
+    if(!mongoose.isValidObjectId(req.params.id)){
+        res.status(400).send('invalid id type')
+    }
+    const book= await Book.findByIdAndDelete(req.params.id)
+
+    if(!book)
+    return res.status(404).json({status:false,message:'product can not be deleted'})
+
+    return res.status(200).json({status:true,message:'product is deleted'})
+
+})
+
+// update book
+router.put('/:id', async(req, res)=>{
+    
+    if(!mongoose.isValidObjectId(req.params.id)){
+        res.status(400).send('invalid id type')
+    }
+    const book= await Book.findByIdAndUpdate(
+        req.params.id,{
+            price:req.body.price,
+            deliveryTime:req.body.deliveryTime,
+            award:req.body.award,
+        },
+        {new:true}
+    )
+    if(!book)
+    return res.status(404).json({status:false,message:'invalid id'})
+
+    return res.send(book)
+})
+
+
 module.exports= router
