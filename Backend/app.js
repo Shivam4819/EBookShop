@@ -9,6 +9,12 @@ const mongoose = require('mongoose');
 const bookRouter= require('./routers/books')
 const categoryRouter= require('./routers/categories')
 const orderRouter= require('./routers/orders');
+const cors = require('cors');
+
+
+
+app.use(cors());
+app.options('*', cors())
 
 
 // middileware

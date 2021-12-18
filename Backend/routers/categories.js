@@ -21,9 +21,9 @@ router.post('/',async (req,res)=>{
     category= await category.save();
     
     if(!category)
-    return res.status(404).send(' category not created')
+    return res.status(404).send({message:' category not created'})
 
-    res.send(category)
+    res.status(200).send({message:' category created'})
 
 })
 
