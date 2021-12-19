@@ -19,12 +19,19 @@ export default function BooksComponent(){
     },[])
   
 
+    const handleDelete = async (id) => {
+        await axios.delete('http://localhost:3000/api/v1/book/' + id)
+
+        const newBook = arr.filter(arrs => arrs.id != id)
+        setArr(newBook)
+    }
+
     return(
         <Container>
             <Grid container spacing={3}>
                 {arr.map(value=>(
                     <Grid item key={value.id} xs={12} md={6} lg={4}>
-                        <CardComponent value={value}/>
+                        <CardComponent value={value} handleDelete={handleDelete}/>
 
                     </Grid>
                 ))}

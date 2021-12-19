@@ -38,10 +38,10 @@ const OrderSchema=mongoose.Schema({
     totalPrice:{
         type:Number,
     },
-    // user:{
-    //     type:mongoose.Schema.Types.ObjectId,
-    //     ref:'User',
-    // },
+    user:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'User',
+    },
     dateOrdered:{
         type:Date,
         default:Date.now

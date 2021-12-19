@@ -10,7 +10,6 @@ const req = require('express/lib/request');
 
 router.get(`/`,async (req,res)=>{
 
-    // this populate category with only name
     const book=await Book.find().populate('category','name')
     // const book=await Book.find().populate('category','name -_id')
     
@@ -31,7 +30,7 @@ router.get('/:id',async (req,res)=>{
     return res.send(book)
 })
 
-// add new product to db
+// add new book to db
 router.post(`/`,async (req,res)=>{
 
     const category= await Category.findById(req.body.category);
@@ -52,9 +51,9 @@ router.post(`/`,async (req,res)=>{
 
     newbook= await newbook.save()
     
-    if(!newbook) return res.status(404).json({status:false,message:'book not created'})
+    if(!newbook) return res.status(404).json({status:false,message:'book not added'})
 
-    return res.send(newbook)
+    return res.status(200).send({message:"new book added to db"})
 })
 
 // del book

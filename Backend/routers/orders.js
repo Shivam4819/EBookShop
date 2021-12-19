@@ -7,6 +7,7 @@ const mongoose= require('mongoose');
 // get all order
 router.get('/',async(req,res)=>{
     const order= await Order.find()
+    .populate({path:'orderItems', populate:{path:'book', populate:'category'}}).populate('user')
     // it sort the data from new created to oldest created
     // const order= await Order.find().populate('User').sort({'dateCreated':-1})
     if(!order)
@@ -60,7 +61,7 @@ router.post(`/`,async (req,res)=>{
         phone:req.body.phone,
         status:req.body.status,
         totalPrice:totalPrice,
-        // user:req.body.user
+        user:req.body.user
     })
 
     order= await order.save()

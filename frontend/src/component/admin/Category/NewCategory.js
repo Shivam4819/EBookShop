@@ -2,7 +2,8 @@ import React ,{useState}from 'react'
 import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {ButtonToggle, Container, Form, FormGroup} from 'reactstrap';
+// import {ButtonToggle, Container, Form, FormGroup} from 'reactstrap';
+import {  Form,  Input, Button,  TreeSelect,DatePicker} from 'antd'
 
 export default function NewCategory(){
     
@@ -26,23 +27,23 @@ export default function NewCategory(){
     }
 
     return(
-        <Container className="forms">
-            <Form >
-                <h1>Add new category to db</h1>
-                <FormGroup>
-                    Category:<input type="text" name="name" placeholder="category" onChange={(event => setName(event.target.value))}/><br/>
-                </FormGroup>
-                <FormGroup>
-                    <ButtonToggle color="primary" size="md" onClick={requestToServer}>Login </ButtonToggle>{' '}
-                    <ToastContainer
-                        position="bottom-right"
-                        autoClose={2000}
-                    />
-                </FormGroup>
+        <Form labelCol={{
+                span: 4,
+            }}
+            wrapperCol={{
+                span: 14,
+            }}
+            layout="horizontal"
+        >
+                <Form.Item label="category" > <Input onChange={(event => setName(event.target.value))}/> </Form.Item>
 
-            </Form>
-        </Container>
-
+            <Button color="primary" size="md" onClick={requestToServer}>Save </Button>{' '}
+            <ToastContainer
+                    position="bottom-right"
+                    autoClose={2000}
+            />
+        </Form>
+           
     )
 }
 

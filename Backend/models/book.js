@@ -1,9 +1,5 @@
 const mongoose = require('mongoose');
 
-
-// before pushing data to db we design schema , that is called as collections in mongo and 
-// model in node js
-
 const BookSchema=mongoose.Schema({
 
     category:{
@@ -53,7 +49,5 @@ BookSchema.virtual('id').get(function () {
 BookSchema.set('toJSON', {
     virtuals: true,
 });
-
-// above we define schema now we create obj ie is model
 
 exports.Book= mongoose.model('Book',BookSchema)

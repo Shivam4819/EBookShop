@@ -9,7 +9,10 @@ const mongoose = require('mongoose');
 const bookRouter= require('./routers/books')
 const categoryRouter= require('./routers/categories')
 const orderRouter= require('./routers/orders');
+const userRouter= require('./routers/users')
 const cors = require('cors');
+const authJwt = require('./helpers/jwt');
+const errorHandler=require('./helpers/error-handler')
 
 
 
@@ -20,12 +23,14 @@ app.options('*', cors())
 // middileware
 app.use(express.json());
 app.use(morgan('tiny'));
-
+app.use(authJwt())
+app.use(errorHandler)
 
 // routes
 app.use(`${api}/book`, bookRouter)
 app.use(`${api}/category`, categoryRouter)
 app.use(`${api}/order`, orderRouter)
+app.use(`${api}/user`, userRouter)
 
 
 
