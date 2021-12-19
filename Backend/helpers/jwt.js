@@ -23,13 +23,12 @@ function authJwt(){
 }
 
 async function isRevoked(req, payload, done){
-    if(payload.isAdmin && !payload.isUser){
-        done()
+    if(!payload.isAdmin){
+        if(!payload.isUser){
+        done(null, true)
+        }
     }
-    else if(payload.isUser&& !payload.isAdmin){
-        done()
-    }
-    done(null,true);
+    done();
 
 }
 
